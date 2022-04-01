@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { from, throwError, Subject } from 'rxjs';
+import { map, catchError, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { BusinessService } from 'src/app/services/business.service';
+import { Business } from 'src/app/models/business';
 
 @Component({
   selector: 'app-home',
@@ -6,10 +10,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  businesses: Business[] = [];
 
-  constructor() { }
+  constructor(public businessService: BusinessService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    console.log('...Calling Business Service:');
+
+    this.getAllBusinesses();
+  }
+
+  public getAllBusinesses() {
+    this.businessService.businessesList().subscribe((businesses: Business[]) => {
+			this.businesses = businesses;
+
+			// Set for pagination
+			//this.model.pageLength = 10;
+			//this.model.totalDataLength = this.filteredPapersForPagination.length;
+			//this.selectPage(1);
+		});
   }
 
 }

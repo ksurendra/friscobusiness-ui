@@ -86,162 +86,21 @@
           </form>
         </div>
         <div class="col-9">
-          <div class="row row-cards">
-            <div class="col-sm-6 col-lg-4">
+          <div class="row row-cards" >
+            <div class="col-sm-6 col-lg-4" *ngFor="let business of businesses">
               <div class="card card-sm">
                 <a href="business-detail" class="d-block"><img src="../../../assets/static/photos/1b73704b282a8ec6.jpg" class="card-img-top"></a>
                 <div class="card-body">
                   <div class="d-flex align-items-center">
                     <span class="avatar me-3 rounded" style="background-image: url(./static/avatars/000m.jpg)"></span>
                     <div>
-                      <div>Pawel Kuna</div>
-                      <div class="text-muted">3 days ago</div>
+                      <div>{{business.businessName}}</div>
+                      <div class="text-muted">{{business.businessTagline}}</div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-sm-6 col-lg-4">
-              <div class="card card-sm">
-                <a href="#" class="d-block"><img src="../../../assets/static/photos/3d2998219313cd37.jpg" class="card-img-top"></a>
-                <div class="card-body">
-                  <div class="d-flex align-items-center">
-                    <span class="avatar me-3 rounded">JL</span>
-                    <div>
-                      <div>Jeffie Lewzey</div>
-                      <div class="text-muted">5 days ago</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-lg-4">
-              <div class="card card-sm">
-                <a href="#" class="d-block"><img src="../../../assets/static/photos/6ab3200b14549f8a.jpg" class="card-img-top"></a>
-                <div class="card-body">
-                  <div class="d-flex align-items-center">
-                    <span class="avatar me-3 rounded" style="background-image: url(./static/avatars/002m.jpg)"></span>
-                    <div>
-                      <div>Mallory Hulme</div>
-                      <div class="text-muted">yesterday</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-lg-4">
-              <div class="card card-sm">
-                <a href="#" class="d-block"><img src="../../../assets/static/photos/6d35d9a2bd6c63c2.jpg" class="card-img-top"></a>
-                <div class="card-body">
-                  <div class="d-flex align-items-center">
-                    <span class="avatar me-3 rounded" style="background-image: url(./static/avatars/003m.jpg)"></span>
-                    <div>
-                      <div>Dunn Slane</div>
-                      <div class="text-muted">1 week and 3 days ago</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-lg-4">
-              <div class="card card-sm">
-                <a href="#" class="d-block"><img src="../../../assets/static/photos/8a26974ee6444acd.jpg" class="card-img-top"></a>
-                <div class="card-body">
-                  <div class="d-flex align-items-center">
-                    <span class="avatar me-3 rounded" style="background-image: url(./static/avatars/000f.jpg)"></span>
-                    <div>
-                      <div>Emmy Levet</div>
-                      <div class="text-muted">5 days ago</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-lg-4">
-              <div class="card card-sm">
-                <a href="#" class="d-block"><img src="../../../assets/static/photos/8c13ad59f739558c.jpg" class="card-img-top"></a>
-                <div class="card-body">
-                  <div class="d-flex align-items-center">
-                    <span class="avatar me-3 rounded" style="background-image: url(./static/avatars/001f.jpg)"></span>
-                    <div>
-                      <div>Maryjo Lebarree</div>
-                      <div class="text-muted">3 days ago</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-lg-4">
-              <div class="card card-sm">
-                <a href="#" class="d-block"><img src="../../../assets/static/photos/8fdeb4785d2b82ef.jpg" class="card-img-top"></a>
-                <div class="card-body">
-                  <div class="d-flex align-items-center">
-                    <span class="avatar me-3 rounded">EP</span>
-                    <div>
-                      <div>Egan Poetz</div>
-                      <div class="text-muted">6 days ago</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-lg-4">
-              <div class="card card-sm">
-                <a href="#" class="d-block"><img src="../../../assets/static/photos/9f36332564ca271d.jpg" class="card-img-top"></a>
-                <div class="card-body">
-                  <div class="d-flex align-items-center">
-                    <span class="avatar me-3 rounded" style="background-image: url(./static/avatars/002f.jpg)"></span>
-                    <div>
-                      <div>Kellie Skingley</div>
-                      <div class="text-muted">1 week and 2 days ago</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-lg-4">
-              <div class="card card-sm">
-                <a href="#" class="d-block"><img src="../../../assets/static/photos/35b88fc04a518c1b.jpg" class="card-img-top"></a>
-                <div class="card-body">
-                  <div class="d-flex align-items-center">
-                    <span class="avatar me-3 rounded" style="background-image: url(./static/avatars/003f.jpg)"></span>
-                    <div>
-                      <div>Christabel Charlwood</div>
-                      <div class="text-muted">today</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-lg-4">
-              <div class="card card-sm">
-                <a href="#" class="d-block"><img src="../../../assets/static/photos/36e273986ed577b8.jpg" class="card-img-top"></a>
-                <div class="card-body">
-                  <div class="d-flex align-items-center">
-                    <span class="avatar me-3 rounded">HS</span>
-                    <div>
-                      <div>Haskel Shelper</div>
-                      <div class="text-muted">2 days ago</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-lg-4">
-              <div class="card card-sm">
-                <a href="#" class="d-block"><img src="../../../assets/static/photos/75b555b99d5b38c4.jpg" class="card-img-top"></a>
-                <div class="card-body">
-                  <div class="d-flex align-items-center">
-                    <span class="avatar me-3 rounded" style="background-image: url(./static/avatars/006m.jpg)"></span>
-                    <div>
-                      <div>Lorry Mion</div>
-                      <div class="text-muted">5 days ago</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
 
           </div>
         </div>
