@@ -21,8 +21,10 @@ export class HomeComponent implements OnInit {
   }
 
   public getAllBusinesses() {
-    this.businessService.businessesList().subscribe((businesses: Business[]) => {
+    this.businessService.getBusinesses().subscribe((businesses: Business[]) => {
 			this.businesses = businesses;
+
+      console.log(this.businesses);
 
 			// Set for pagination
 			//this.model.pageLength = 10;

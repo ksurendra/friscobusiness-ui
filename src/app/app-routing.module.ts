@@ -4,8 +4,14 @@ import { HomeComponent } from './components/home/home.component';
 import { BusinessDetailComponent } from './components/business/business-detail/business-detail.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'business-detail', component: BusinessDetailComponent }
+  {
+    path: '',
+    component: HomeComponent
+  },
+  {
+    path: 'business-detail/:id',
+    component: BusinessDetailComponent
+  }
 ];
 
 @NgModule({
