@@ -3,14 +3,15 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Business } from '../models/business';
+import { Category } from '../models/category';
 import { MessageService } from './message.service';
 
 @Injectable({ providedIn: 'root' })
 export class BusinessService {
-
-  allBusinessesUrl = 'http://localhost:9090/fb/data/fetch-all';
-
+  allBusinessesUrl = 'http://localhost:9090/fb/data/get-all-businesses';
   findBusinessByIdUrl = 'http://localhost:9090/fb/data/find-business-by-id';
+  findBusinessesUrl = 'http://localhost:9090/fb/data/find-business';
+  allCategoriesUrl = 'http://localhost:9090/fb/data/get-all-categories';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -45,61 +46,30 @@ export class BusinessService {
     );
   }
 
-  /*
-  businessesList(): Observable<Business[]> {
-		const url = `${this.allBusinessesUrl}/`;
-		return this.http
-			.get(url)
-			.pipe(
-			map((data: any) =>
-				data.map(
-					(item: any) =>
-						new Business(data.businessId,
-              data.businessName,
-              data.businessTagline,
-              data.businessAddressLine1,
-              data.businessAddressLine2,
-              data.businessCity,
-              data.businessState,
-              data.businessZip,
-              data.businessCounty,
-              data.businessCountry,
-              data.businessPhone1,
-              data.businessPhone2,
-              data.businessEmail1,
-              data.businessEmail2,
-              data.businessWebsite,
-              data.businessLocation)
-					)
-				)
-			);
-	}*/
+  /* GET heroes whose name contains search term */
+  searchBusinesses(term: string): Observable<Business[]> {
+    console.log('BusinessService.searchBusinesses:'+term);
 
-  /*
-  fetchBusiness(pvalue: string): Observable<Business> {
-		const params = new HttpParams().set('businessid', pvalue);
-		params.append('businessid', pvalue);
-		const url = `${this.findBusinessByIdUrl}`;
-		return this.http
-				.get(url, {params: params})
-				.pipe(map((data: any) => new Business(data.businessId,
-													data.businessName,
-                          data.businessTagline,
-                          data.businessAddressLine1,
-                          data.businessAddressLine2,
-                          data.businessCity,
-                          data.businessState,
-                          data.businessZip,
-                          data.businessCounty,
-                          data.businessCountry,
-                          data.businessPhone1,
-                          data.businessPhone2,
-                          data.businessEmail1,
-                          data.businessEmail2,
-                          data.businessWebsite,
-                          data.businessLocation,
-													)));
-	}*/
+    if (!term.trim()) {
+      // if not search term, return empty hero array.
+      return of([]);
+    }
+    return this.http.get<Business[]>(`${this.findBusinessesUrl}/?businessname=${term}`).pipe(
+      tap(x => x.length ?
+         this.log(`found businesses matching "${term}"`) :
+         this.log(`no businesses matching "${term}"`)),
+      catchError(this.handleError<Business[]>('searchBusinesses', []))
+    );
+  }
+
+  /** Get Businesses from server */
+  getCategories(): Observable<Category[]> {
+    return this.http.get<Category[]>(this.allCategoriesUrl)
+       .pipe(
+         tap(_ => this.log('fetched categories')),
+         catchError(this.handleError<Category[]>('getCategories', []))
+       );
+  }
 
   /**
    * Handle Http operation that failed.

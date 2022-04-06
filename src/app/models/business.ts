@@ -1,3 +1,5 @@
+import { Category } from "./category";
+
 export interface Business {
   id: String;
 	businessName: String;
@@ -15,5 +17,6 @@ export interface Business {
   businessEmail2: String;
   businessWebsite: String;
   businessLocation: String;
+  businessCategory: Category;
 }
 
