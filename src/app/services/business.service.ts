@@ -22,9 +22,18 @@ export class BusinessService {
   constructor(private http: HttpClient,
     private messageService: MessageService) { }
 
-  /** Get Businesses from server */
-  getBusinesses(): Observable<Business[]> {
-    return this.http.get<Business[]>(this.allBusinessesUrl)
+  /** Get Businesses from server
+   * "category" param is optional.
+  */
+  getBusinesses(category: string): Observable<Business[]> {
+    const url = `${this.allBusinessesUrl}`;
+    console.log('category='+category);
+
+    const params = new HttpParams().set('category', category);
+		params.append('category', category);
+
+    return this.http
+      .get<Business[]>(url, {params: params})
       .pipe(
         tap(_ => this.log('fetched businesses')),
         catchError(this.handleError<Business[]>('getBusinesses', []))

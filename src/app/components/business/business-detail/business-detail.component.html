@@ -20,14 +20,21 @@
               <div class="row g-4" *ngIf="fetchedBusiness; else elseBlock">
                 <div class="col-md-12 markdown">
                   <h1>{{fetchedBusiness.businessName}}</h1>
+                  <small class="text-muted ms-auto">{{fetchedBusiness.businessTagline}}</small>
                 </div>
                 <div class="col-md-4 markdown">
                   <a href="business-detail" class="d-block"><img src="../../../assets/static/photos/1b73704b282a8ec6.jpg" class="card-img-top"></a>
                 </div>
                 <div class="col-md-8 markdown">
-                  The sample text for this business that can go as long as this. The text will now repeat. The sample text for this business that can go as long as this. The text will now repeat.
+                  <h2>Address</h2>
+                  {{fetchedBusiness.businessAddressLine1}}, <br/>
+                  {{fetchedBusiness.businessAddressLine2}} <br />
+                  {{fetchedBusiness.businessCity}}, {{fetchedBusiness.businessState}} {{fetchedBusiness.businessZip}}
                   <br />
-                  <h2>Category:</h2>{{fetchedBusiness.businessCategory.categoryName}}
+                  <h2>Category</h2>
+                  <span *ngFor="let cat of fetchedBusiness.businessCategory; let isLast=last">
+                    {{cat.categoryName}}{{isLast ? '' : ', '}}
+                  </span>
                 </div>
               </div>
               <ng-template #elseBlock>Error finding the business. Please try again!</ng-template>

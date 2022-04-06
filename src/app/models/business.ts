@@ -17,6 +17,6 @@ export interface Business {
   businessEmail2: String;
   businessWebsite: String;
   businessLocation: String;
-  businessCategory: Category;
+  businessCategory: Category[];
 }
 

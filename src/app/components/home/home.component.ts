@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { from, throwError, Subject } from 'rxjs';
 import { map, catchError, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { ActivatedRoute, Params } from '@angular/router';
 import { BusinessService } from 'src/app/services/business.service';
 import { Business } from 'src/app/models/business';
 import { Category } from 'src/app/models/category';
@@ -13,16 +14,29 @@ import { Category } from 'src/app/models/category';
 export class HomeComponent implements OnInit {
   businesses: Business[] = [];
   categories: Category[] = [];
+  category: string = "";
 
-  constructor(public businessService: BusinessService) { }
+  constructor(private route: ActivatedRoute,
+    public businessService: BusinessService) { }
 
   ngOnInit() {
+    console.log(this.route.queryParams);
+    this.route.params.forEach((params: Params) => {
+			console.log(params);
+			if (params['category'] !== undefined) {
+        this.category = params['category'];
+				console.log('..fetching data for category=', );
+			} else {
+				console.log('..error - param');
+			}
+		});
+
     this.getAllBusinesses();
     this.getAllCategories();
   }
 
   public getAllBusinesses() {
-    this.businessService.getBusinesses().subscribe((businesses: Business[]) => {
+    this.businessService.getBusinesses(this.category).subscribe((businesses: Business[]) => {
 			this.businesses = businesses;
 
 			// Set for pagination
