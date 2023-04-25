@@ -1,22 +1,13 @@
-import { Category } from "./category";
+import { Address } from "./address";
 
 export interface Business {
   id: String;
+  businessId: String;
 	businessName: String;
-  businessTagline: String;
-  businessAddressLine1: String;
-  businessAddressLine2: String;
-  businessCity: String;
-  businessState: String;
-  businessZip: String;
-  businessCounty: String;
-  businessCountry: String;
-  businessPhone1: String;
-  businessPhone2: String;
-  businessEmail1: String;
-  businessEmail2: String;
+  businessAbout: String;
+  businessPhone: String;
+  businessEmail: String;
   businessWebsite: String;
-  businessLocation: String;
-  businessCategory: Category[];
+  businessAddress: Address;
 }
 

@@ -1,39 +1,64 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Business } from '../models/business';
 import { Category } from '../models/category';
 import { MessageService } from './message.service';
 
+const httpHeaders = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json' ,
+    'Access-Control-Allow-Origin': '*' 
+  })
+};
+
+const allBusinessesUrl = 'http://localhost:8080/friscobusiness/business/all';
+const findBusinessByIdUrl = 'http://localhost:8080/friscobusiness/business';
+
+//const allBusinessesUrl = 'https://frisco-business.uc.r.appspot.com/friscobusiness/business/all';
+//const findBusinessByIdUrl = 'https://frisco-business.uc.r.appspot.com/friscobusiness/business/';
+const findBusinessesUrl = 'http://localhost:9090/fb/data/find-business';
+const allCategoriesUrl = 'http://localhost:9090/fb/data/get-all-categories';
+
 @Injectable({ providedIn: 'root' })
 export class BusinessService {
-  allBusinessesUrl = 'http://localhost:9090/fb/data/get-all-businesses';
-  findBusinessByIdUrl = 'http://localhost:9090/fb/data/find-business-by-id';
-  findBusinessesUrl = 'http://localhost:9090/fb/data/find-business';
-  allCategoriesUrl = 'http://localhost:9090/fb/data/get-all-categories';
-
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
 
   businesses: Business[] = [];
 
   constructor(private http: HttpClient,
     private messageService: MessageService) { }
 
+  getAllBusinesses(): Observable<Business[]> {
+    const url = `${allBusinessesUrl}`;
+    
+    const httpParams = new HttpParams();
+    const options = { params: httpParams, Headers: httpHeaders };
+
+    this.http.get(url, options).subscribe(response => {console.log(response)});
+  
+    return this.http
+      .get<Business[]>(url, options)
+      .pipe(
+        tap(_ => this.log('..fetched businesses')),
+        catchError(this.handleError<Business[]>('getAllBusinesses', []))
+      );
+  }
+
   /** Get Businesses from server
    * "category" param is optional.
   */
   getBusinesses(category: string): Observable<Business[]> {
-    const url = `${this.allBusinessesUrl}`;
+    const url = `${allBusinessesUrl}`;
     console.log('category='+category);
 
-    const params = new HttpParams().set('category', category);
-		params.append('category', category);
+    const httpParams = new HttpParams().set('category', category);
+		httpParams.append('category', category);
+
+    const options = { params: httpParams, Headers: httpHeaders };
 
     return this.http
-      .get<Business[]>(url, {params: params})
+      .get<Business[]>(url, options)
       .pipe(
         tap(_ => this.log('fetched businesses')),
         catchError(this.handleError<Business[]>('getBusinesses', []))
@@ -42,13 +67,19 @@ export class BusinessService {
 
   /** Get Businesses from server */
   getBusiness(id: string): Observable<Business> {
-    console.log('get business with id = ' + id);
-    const params = new HttpParams().set('businessid', id);
-		params.append('businessid', id);
-    const url = `${this.findBusinessByIdUrl}`;
+    console.log('Business Service: get business with id = ' + id);
+    const params = new HttpParams();
+		params.set('businessid', id);
+
+    //params.append('businessid', id);
+    //const url = `${findBusinessByIdUrl}`;
+    const url = `${findBusinessByIdUrl}/${params.toString()}`;
+    const url2 = `${findBusinessByIdUrl}/${id}`;
+
+    //.get<Business>(url, {params: params})
 
     return this.http
-      .get<Business>(url, {params: params})
+      .get<Business>(url2)
       .pipe(
         tap(_ => this.log(`fetched business id=${id}`)),
         catchError(this.handleError<Business>(`getBusiness id=${id}`))
@@ -63,7 +94,7 @@ export class BusinessService {
       // if not search term, return empty hero array.
       return of([]);
     }
-    return this.http.get<Business[]>(`${this.findBusinessesUrl}/?businessname=${term}`).pipe(
+    return this.http.get<Business[]>(`${findBusinessesUrl}/?businessname=${term}`).pipe(
       tap(x => x.length ?
          this.log(`found businesses matching "${term}"`) :
          this.log(`no businesses matching "${term}"`)),
@@ -73,7 +104,7 @@ export class BusinessService {
 
   /** Get Businesses from server */
   getCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>(this.allCategoriesUrl)
+    return this.http.get<Category[]>(allCategoriesUrl)
        .pipe(
          tap(_ => this.log('fetched categories')),
          catchError(this.handleError<Category[]>('getCategories', []))

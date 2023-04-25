@@ -14,7 +14,7 @@ import { Category } from 'src/app/models/category';
 export class HomeComponent implements OnInit {
   businesses: Business[] = [];
   categories: Category[] = [];
-  category: string = "";
+  category: string = "None";
 
   constructor(private route: ActivatedRoute,
     public businessService: BusinessService) { }
@@ -27,15 +27,27 @@ export class HomeComponent implements OnInit {
         this.category = params['category'];
 				console.log('..fetching data for category=', );
 			} else {
-				console.log('..error - param');
+				console.log('No params');
 			}
 		});
 
     this.getAllBusinesses();
-    this.getAllCategories();
+    //this.getAllCategories();
   }
 
   public getAllBusinesses() {
+    this.businessService.getAllBusinesses().subscribe((businesses: Business[]) => {
+			this.businesses = businesses;
+
+			// Set for pagination
+			//this.model.pageLength = 10;
+			//this.model.totalDataLength = this.filteredPapersForPagination.length;
+			//this.selectPage(1);
+		});
+    console.log("Businesses = " + this.businesses);
+  }
+
+  public getAllBusinessesByCategory() {
     this.businessService.getBusinesses(this.category).subscribe((businesses: Business[]) => {
 			this.businesses = businesses;
 
