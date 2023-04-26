@@ -13,11 +13,10 @@ const httpHeaders = {
   })
 };
 
-const allBusinessesUrl = 'http://localhost:8080/friscobusiness/business/all';
-const findBusinessByIdUrl = 'http://localhost:8080/friscobusiness/business';
-
-//const allBusinessesUrl = 'https://frisco-business.uc.r.appspot.com/friscobusiness/business/all';
-//const findBusinessByIdUrl = 'https://frisco-business.uc.r.appspot.com/friscobusiness/business/';
+//const allBusinessesUrl = 'http://localhost:8080/friscobusiness/business/all';
+//const findBusinessByIdUrl = 'http://localhost:8080/friscobusiness/business';
+const allBusinessesUrl = 'https://frisco-business.uc.r.appspot.com/friscobusiness/business/all';
+const findBusinessByIdUrl = 'https://frisco-business.uc.r.appspot.com/friscobusiness/business';
 const findBusinessesUrl = 'http://localhost:9090/fb/data/find-business';
 const allCategoriesUrl = 'http://localhost:9090/fb/data/get-all-categories';
 
